@@ -4,11 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="scss/bootstrap-reboot.css">
+    <link rel="stylesheet" href="scss/bootstrap-utilities.css">
+    <link rel="stylesheet" href="scss/bootstrap-grid.css">
+    <link rel="stylesheet" href="scss/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <title>To-do</title>
 </head>
-<body>
-    
+<body class="container-fluid bg-dark">
+    <div class="row">
+        <aside class="col-2 bg-secondary fixed-top pb-1">
+            <div class="d-grid my-2">
+                <button type="button" class="btn btn-primary">New Note</button>
+            </div>
+            <div id="notes-container" class="flex-column overflow-y-scroll">
+                <div class="side-note mb-1">
+                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 1</button>
+                </div>
+                <div class="side-note mb-1">
+                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 2</button>
+                </div>
+                <div class="side-note mb-1">
+                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 3</button>
+                </div>
+            </div>
+        </aside>
+        <main class="col-10">
+
+        </main>
+    </div>
 </body>
 </html>

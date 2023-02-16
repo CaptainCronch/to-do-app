@@ -1,6 +1,9 @@
 @use "vars";
-@use "scss/bootstrap-reboot.scss";
-@use "scss/bootstrap-utilities.scss";
-@use "scss/bootstrap-grid.scss";
-@use "scss/bootstrap.scss";
 
+aside {
+    height: 100vh;
+}
+
+#notes-container {
+    height: 90%;
+}
