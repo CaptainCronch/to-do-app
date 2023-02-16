@@ -9,29 +9,33 @@
     <link rel="stylesheet" href="scss/bootstrap-grid.css">
     <link rel="stylesheet" href="scss/bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous" defer></script>
     <script src="script.js" defer></script>
     <title>To-do</title>
 </head>
 <body class="container-fluid bg-dark">
     <div class="row">
-        <aside class="col-2 bg-secondary fixed-top pb-1">
+        <aside class="col-2 bg-secondary">
             <div class="d-grid my-2">
                 <button type="button" class="btn btn-primary">New Note</button>
             </div>
-            <div id="notes-container" class="flex-column overflow-y-scroll">
+            <div id="notes-container" class="flex-column overflow-x-hidden">
                 <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 1</button>
+                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 1</button>
                 </div>
                 <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 2</button>
+                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 2</button>
                 </div>
                 <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light">Note 3</button>
+                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 3</button>
                 </div>
             </div>
         </aside>
-        <main class="col-10">
-
+        <main class="col-10 flex-column align-center">
+            <div id="note" class="mx-5 my-5 px-5 py-4 bg-light">
+                <h1>Note 1</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam unde ad aliquid, libero dolore est maxime aut natus similique aperiam iste sapiente nesciunt ea hic asperiores. Nam, officiis. Obcaecati, nesciunt!</p>
+            </div>
         </main>
     </div>
 </body>
