@@ -1,9 +1,19 @@
 @use "vars";
 
 aside {
+    position: sticky;
+    top: 0px;
+    left: 0px;
     height: 100vh;
 }
 
 #notes-container {
     height: 90%;
+}
+
+#controls {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
 }

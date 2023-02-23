@@ -17,24 +17,19 @@
     <div class="row">
         <aside class="col-2 bg-secondary">
             <div class="d-grid my-2">
-                <button type="button" class="btn btn-primary">New Note</button>
+                <button type="button" class="btn btn-lg btn-primary" id="new-note">+</button>
             </div>
-            <div id="notes-container" class="flex-column overflow-x-hidden">
-                <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 1</button>
-                </div>
-                <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 2</button>
-                </div>
-                <div class="side-note mb-1">
-                    <button type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note 3</button>
-                </div>
-            </div>
+            <div id="notes-container" class="flex-column overflow-x-hidden"></div>
         </aside>
-        <main class="col-10 flex-column align-center">
+        <main class="col-10 d-flex flex-column align-center justify-content-start">
             <div id="note" class="mx-5 my-5 px-5 py-4 bg-light">
-                <h1>Note 1</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam unde ad aliquid, libero dolore est maxime aut natus similique aperiam iste sapiente nesciunt ea hic asperiores. Nam, officiis. Obcaecati, nesciunt!</p>
+                <h1 contenteditable></h1>
+                <ul>
+                </ul>
+            </div>
+            <div id="controls">
+                <button id="save" class="btn btn-lg btn-primary me-1">Save</button>
+                <button id="delete" class="btn btn-lg btn-danger">Delete</button>
             </div>
         </main>
     </div>
