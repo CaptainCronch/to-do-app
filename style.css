@@ -31,4 +31,16 @@ aside {
   bottom: 0;
   right: 0;
   margin: 20px;
+}
+
+#note {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }/*# sourceMappingURL=style.css.map */
