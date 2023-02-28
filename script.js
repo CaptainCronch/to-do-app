@@ -44,21 +44,27 @@ function render() {
         if (element.checked){
             $(note_body).append(`
             <li>
-                <input class="form-check-input" type="checkbox" value="" aria-label="Checkbox for following text input" checked>
-                <p contenteditable class="d-inline-block">${element.item}</p>
+                <input class="form-check-input align-middle" type="checkbox" value="" aria-label="Checkbox for following text input" checked>
+                <input type="text" class="to-do form-control form-control-sm d-inline-block form-control-plaintext ms-1 ps-1" placeholder="Start typing..." value="${element.item}" aria-label="Text input with checkbox">
             </li>
             `)
         }
         else {
             $(note_body).append(`
             <li>
-                <input class="form-check-input" type="checkbox" value="" aria-label="Checkbox for following text input">
-                <p contenteditable class="d-inline-block">${element.item}</p>
+                <input class="form-check-input align-middle" type="checkbox" value="" aria-label="Checkbox for following text input">
+                <input type="text" class="to-do form-control form-control-sm d-inline-block form-control-plaintext ms-1 ps-1" placeholder="Start typing..." value="${element.item}" aria-label="Text input with checkbox">
             </li>
             `)
         }
+        $(note_body).children().eq($(note_body).children().length - 1).children("p").on('keyup', function(){
+            $(this).text($(this).text().replace(/[\r\n\v]+/g, ''));
+            notes[current_note_index].list.push({item: "", checked: false})
+            render()
+          });
     })
 }
+
 
 
 
