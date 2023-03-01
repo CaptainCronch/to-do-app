@@ -38,7 +38,7 @@ function updateNote() {
 function addAside() {
     $(aside).append(`
     <div class="side-note mb-1">
-        <button id="note-${current_note_index}" type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note ${current_note_index}</button>
+        <button id="i${current_note_index}" type="button" class="btn btn-link text-decoration-none text-light text-nowrap">Note ${current_note_index}</button>
     </div>
     `)
     
