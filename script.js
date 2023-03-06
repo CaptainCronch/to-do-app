@@ -14,6 +14,11 @@ let notes = {
     },
 }
 
+const default_note = {
+    item: "",
+    checked: false,
+}
+
 let note_title = $("#note h1")
 let note_body = $("#note ul")
 let aside = $("#notes-container")
@@ -28,7 +33,7 @@ function getRandomInt(min, max) {
 }
   
 
-function render() {
+function render(recent_index = notes[current_id].list.length - 1) {
     $(aside).children().each(function() {
         $(this).remove()
     })
@@ -64,24 +69,34 @@ function render() {
             </li>
             `)
         }
-        $(".to-do").on('keypress', (key) => {
-            if (key.keyCode == 13) {
-                save()
-                notes[current_id].list.push({item: "", checked: false})
-                setTimeout(render, 0)
+
+        $(".to-do").on('keyup', function(key) {
+            let active_index = [...document.activeElement.parentElement.parentElement.children].indexOf(document.activeElement.parentElement)
+            save()
+
+            if (key.code == "Escape" && this.selectionStart == 0 && notes[current_id].list.length > 1) {
+                notes[current_id].list.splice(active_index, 1)
+                setTimeout(render, 0, active_index - 1)
             }
-        });
-        $(".to-do").on('keydown', function(key) {
-            if (key.keyCode == 8 && this.selectionStart == 0) {
-                save()
-                notes[current_id].list.splice($(note_body).index($(window.activeElement).parent()), 1)
-                setTimeout(render, 0)
-                console.log($(note_body).index($(window.activeElement).parent()))
+
+            else if (key.code == "Enter") {
+                notes[current_id].list.splice(active_index + 1, 0, {item: "", checked: false})
+                setTimeout(render, 0, active_index + 1)
+            }
+
+            else if (key.code == "ArrowUp" && active_index > 0) {
+                active_index --
+                $(".to-do").eq(active_index).focus()
+            }
+
+            else if (key.code == "ArrowDown" && active_index < notes[current_id].list.length - 1) {
+                active_index ++
+                $(".to-do").eq(active_index).focus()
             }
         })
     })
 
-    $(".to-do").eq($(".to-do").length - 1).focus()
+    $(".to-do").eq(recent_index).focus()
 }
 
 function save() {
@@ -97,14 +112,36 @@ function save() {
 }
 
 $("h1").on("keypress", (key) => {
-    $(document.activeElement).text($(this).text().replace(/[\r\n\v]+/g, ''));
-    if (key.keyCode == 13) {
-        notes[current_id].list.push({item: "", checked: false})
-        setTimeout(render, 0)
-    }
+    if (key.code = "Enter") {key.preventDefault()}
+    //setTimeout(() => {$(this).text($(this).text().replace(/[\r\n\v]+/g, ''))}, 0) remove newlines
 })
 
+$("#all").on("click", function() {
+    let result = false // if any element isn't checked, make all checked, otherwise make all unchecked
+    notes[current_id].list.forEach((element) => {
+        if (!element.checked) {
+            result = true
+        }
+    })
+    notes[current_id].list.forEach((element) => {
+        element.checked = result
+    })
+    setTimeout(render, 0)
+})
 
+$("#delete").on("click", function() {
+    let can_render = false
+    notes[current_id].list.forEach((element, index) => {
+        if (element.checked) {
+            notes[current_id].list.splice(index, 1) // modifying array while iterating it is causing the deletion of every other element!!!!
+            can_render = true
+        }
+    })
+    console.log(notes[current_id].list.length)
+    if (notes[current_id].list.length == 0) {
+        notes[current_id].list.push(default_note)
+    }
+    if (can_render) {setTimeout(render, 0)}
+})
 
-
-render()
+setTimeout(render, 0)
