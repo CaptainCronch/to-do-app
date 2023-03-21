@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous" defer></script>
     <script src="script.js" defer></script>
     <title>To-do</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body class="container-fluid bg-dark">
     <div class="row">
@@ -20,6 +21,10 @@
                 <button type="button" class="btn btn-lg btn-primary" id="new-note">+</button>
             </div>
             <div id="notes-container" class="flex-column overflow-x-hidden"></div>
+            <div class="d-grid my-2 gap-2">
+                <button type="button" class="btn btn-primary" id="save">Save</button>
+                <button type="button" class="btn btn-sm btn-primary" id="load">Load</button>
+            </div>
         </aside>
         <main class="col-10 d-flex flex-column align-center justify-content-start">
             <div id="note" class="mx-5 my-5 px-5 py-4 bg-light">
