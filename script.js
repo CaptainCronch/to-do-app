@@ -1,29 +1,42 @@
-let notes = {
-    "0000": {
-        name: "My List",
-        list: [
-            {
-                item: "Press enter to add new to-do",
-                checked: true,
-            },
-            {
-                item: "Press backspace to remove",
-                checked : false,
-            },
-        ],
-    },
-}
-
-const default_note = {
+const empty_note = {
     item: "",
     checked: false,
 }
 
+const default_notes = [
+    {
+        item: "Press enter to add new task",
+        checked: true,
+    },
+    {
+        item: "Press backspace to remove task",
+        checked : false,
+    },
+    {
+        item: "Right click to remove list",
+        checked : false,
+    },
+]
+
+let current_list = "List 1"
+let old_notes = {
+    [current_list]: {
+        name: "My List",
+        list: default_notes
+    },
+}
+
+let current_id = 0
+let notes = [
+    {
+        name: "My List",
+        list: default_notes
+    },
+]
+
 let note_title = $("#note h1")
 let note_body = $("#note ul")
 let aside = $("#notes-container")
-let current_id = "0000"
-
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -43,6 +56,20 @@ function render(recent_index = notes[current_id].list.length - 1) {
         <button id="i${element.key}" type="button" class="btn btn-link text-decoration-none text-light text-nowrap">${element.name}</button>
     </div>
     `)
+    })
+
+    $(aside).children().each(function(index, element) {
+        $(element).on("click", ".btn", () => {
+            current_id = index
+            render()
+        })
+        $(element).on("contextmenu", ".btn", (event) => {
+            event.preventDefault()
+            $(element).remove()
+            notes.splice(current_id, 1)
+            current_id -= 1
+            render()
+        })
     })
 
     $(note_title).text(notes[current_id].name)
@@ -72,11 +99,12 @@ function render(recent_index = notes[current_id].list.length - 1) {
 
     let active_index = recent_index
 
-    if ($(document.activeElement).hasClass("to-do")) {
+    if ($(document.activeElement).hasClass("to-do")) { // check which list element is focused every render
         active_index = [...document.activeElement.parentElement.parentElement.children].indexOf(document.activeElement.parentElement)
     }
 
     $(".to-do").on('keyup', function(key) {
+        console.log(active_index)
         save()
 
         if (key.code == "Backspace" && this.selectionStart == 0 && notes[current_id].list.length > 1) {
@@ -85,7 +113,7 @@ function render(recent_index = notes[current_id].list.length - 1) {
         }
 
         else if (key.code == "Enter") {
-            notes[current_id].list.splice(active_index + 1, 0, {item: "", checked: false})
+            notes[current_id].list.splice(active_index + 1, 0, empty_note)
             setTimeout(render, 0, active_index + 1)
         }
     })
@@ -151,18 +179,24 @@ $("#delete").on("click", function() {
     }
 
     if (notes[current_id].list.length == 0) {
-        notes[current_id].list.push(default_note)
+        notes[current_id].list.push(empty_note)
     }
 
     if (can_render) {setTimeout(render, 0)}
 })
 
 $("#save").on("click", () => {
-    window.localStorage.setItem("notes", notes)
+    window.localStorage.setItem("notes", JSON.stringify(notes))
 })
 
 $("#load").on("click", () => {
-    notes = window.localStorage.getItem("notes")
+    notes = JSON.parse(window.localStorage.getItem("notes"))
+    render()
+})
+
+$("#new-note").on("click", () => {
+    notes.push({name: "New List", list: default_notes})
+    current_id = notes.length - 1
     render()
 })
 
